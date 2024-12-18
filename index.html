@@ -426,8 +426,8 @@
 
   // Function to calculate responsive font size
   function calculateResponsiveFontSize() {
-    const baseSize = 30;
-    const minSize = 16;
+    const baseSize = 45;
+    const minSize = 19;
     const scaleFactor = Math.min(w / 1000, h / 800); // Adjust these values as needed
     return Math.max(baseSize * scaleFactor, minSize);
   }
@@ -449,7 +449,7 @@
     calc.totalWidth = opts.charSpacing * Math.max(opts.strings[0].length, opts.strings[1].length);
 
     // Update context font
-    ctx.font = opts.charSize + "px Verdana";
+    ctx.font = `bold ${opts.charSize}px Verdana`; 
   }
 
   // Call this function initially and on resize
