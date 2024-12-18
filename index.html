@@ -57,7 +57,7 @@
   (hh = h / 2),
     (opts = {
       // change the text in here //
-      strings: ["HAPPY", "BIRTHDAY!", "Nhu Phuc"],
+      strings: ["HAPPY", "BIRTHDAY!", "Nhu Phuc nha"],
       charSize: 30,
       charSpacing: 35,
       lineHeight: 40,
@@ -424,6 +424,38 @@
     if (done) for (var l = 0; l < letters.length; ++l) letters[l].reset();
   }
 
+  // Function to calculate responsive font size
+  function calculateResponsiveFontSize() {
+    const baseSize = 30;
+    const minSize = 16;
+    const scaleFactor = Math.min(w / 1000, h / 800); // Adjust these values as needed
+    return Math.max(baseSize * scaleFactor, minSize);
+  }
+
+  // Function to calculate responsive spacing
+  function calculateResponsiveSpacing(baseSpacing) {
+    const minSpacing = 20;
+    const scaleFactor = Math.min(w / 1000, h / 800); // Adjust these values as needed
+    return Math.max(baseSpacing * scaleFactor, minSpacing);
+  }
+
+  // Update options based on screen size
+  function updateOptionsForScreenSize() {
+    opts.charSize = calculateResponsiveFontSize();
+    opts.charSpacing = calculateResponsiveSpacing(35);
+    opts.lineHeight = calculateResponsiveSpacing(40);
+
+    // Recalculate total width
+    calc.totalWidth = opts.charSpacing * Math.max(opts.strings[0].length, opts.strings[1].length);
+
+    // Update context font
+    ctx.font = opts.charSize + "px Verdana";
+  }
+
+  // Call this function initially and on resize
+  updateOptionsForScreenSize();
+
+
   for (let i = 0; i < opts.strings.length; ++i) {
     for (var j = 0; j < opts.strings[i].length; ++j) {
       letters.push(
@@ -448,8 +480,7 @@
 
     hw = w / 2;
     hh = h / 2;
-
-    ctx.font = opts.charSize + "px Verdana";
+    updateOptionsForScreenSize();
   });
 
 
